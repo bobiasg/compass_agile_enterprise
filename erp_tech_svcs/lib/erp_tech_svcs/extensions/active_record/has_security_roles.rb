@@ -24,12 +24,8 @@ module ErpTechSvcs
 						
 				module InstanceMethods
 
-          def join_parties_security_roles
-            "parties_security_roles ON parties_security_roles.security_role_id=security_roles.id"
-          end
-
           def roles_not
-            SecurityRole.joins("LEFT JOIN #{join_parties_security_roles}").where("parties_security_roles.party_id IS NULL")
+            SecurityRole.where("id NOT IN (#{self.security_roles.select(:id).to_sql})")
           end
 
 				  def roles
