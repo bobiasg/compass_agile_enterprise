@@ -5,13 +5,11 @@
 
     website.themes.active.map{ |theme| {:path => theme.path.to_s, :url => theme.url.to_s}}.each do |theme|
       path = File.join(theme[:path],'widgets',self.widget_name,'views')
-      paths << path unless paths.include?(path)
+      paths.unshift(path) unless paths.include?(path)
     end if website
- 
-    paths.reverse!
+
     ActionView::Base.new(paths).render(:template => view, :locals => locals)
   end
-
 end
 
 ::ErpApp::Widgets::Base.class_eval do

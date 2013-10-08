@@ -150,7 +150,6 @@ module ErpApp
           widget = Rails.application.config.erp_app.widgets.find{|item| item[:name] == self.widget_name}
           paths = widget[:view_paths]
 
-          paths.reverse!
           ActionView::Base.new(paths).render(:template => view, :locals => locals)
         end
 
